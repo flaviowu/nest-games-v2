@@ -1,4 +1,3 @@
-import { Account } from '../../account/entities/account.entity';
 import { Genre } from '../../genre/entities/genre.entity';
 
 export class Game {
@@ -9,8 +8,7 @@ export class Game {
   description: string;
   trailer: string;
   gameplay: string;
-  rating?: number;
+  rating?: number | null;
 
-  accounts?: Account[];
   genres?: Genre[];
 }

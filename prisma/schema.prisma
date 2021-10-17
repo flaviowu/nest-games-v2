@@ -53,7 +53,7 @@ model Game{
 model Genre{
   id              Int           @id @default(autoincrement()) 
   createdAt       DateTime      @default(now())
-  name            String
+  name            String        @unique
   
   games           Game[]
 }

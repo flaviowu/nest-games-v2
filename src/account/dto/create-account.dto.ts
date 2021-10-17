@@ -10,6 +10,7 @@ import {
   IsOptional,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { Cpf } from 'src/decorators/cpf.decorator';
 
 export class CreateAccountDto extends Account {
   @IsString()
@@ -25,15 +26,17 @@ export class CreateAccountDto extends Account {
   email: string;
 
   @IsString()
+  @IsNotEmpty()
   password: string;
 
-  @IsString()
+  @Cpf()
   cpf: string;
 
   @ValidateNested({ each: true })
   @Type(() => CreateProfileDto)
   @IsArray()
-  profiles: CreateProfileDto[];
+  @IsOptional()
+  profiles?: CreateProfileDto[];
 
   @IsInt({ each: true })
   @IsArray()

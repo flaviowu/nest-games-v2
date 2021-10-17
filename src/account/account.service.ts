@@ -1,15 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Injectable()
 export class AccountService {
-  create(createAccountDto: CreateAccountDto) {
-    return 'This action adds a new account';
+  constructor(private readonly prisma: PrismaService) {}
+
+  create(dto: CreateAccountDto) {
+    const data: Prisma.AccountUncheckedCreateInput = {
+      ...dto,
+      profiles: {
+        create: {
+          title: dto.name,
+          image:
+            'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png',
+        },
+      },
+    };
+
+    return this.prisma.account.create({ data });
   }
 
   findAll() {
-    return `This action returns all account`;
+    return this.prisma.account.findMany();
   }
 
   findOne(id: number) {

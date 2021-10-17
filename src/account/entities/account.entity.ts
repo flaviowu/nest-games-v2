@@ -1,5 +1,5 @@
+import { Game } from 'src/game/entities/game.entity';
 import { Profile } from '../../profile/entities/profile.entity';
-import { Game } from '../../game/entities/game.entity';
 
 export class Account {
   id?: number;

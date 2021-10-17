@@ -3,7 +3,6 @@ import {
   IsInt,
   IsNotEmpty,
   IsOptional,
-  ValidateNested,
   IsArray,
 } from 'class-validator';
 import { Game } from '../entities/game.entity';
@@ -37,7 +36,7 @@ export class CreateGameDto extends Game {
   @IsOptional()
   rating?: number;
 
-  @ValidateNested({ each: true })
+  @IsInt({ each: true })
   @IsArray()
   @IsOptional()
   genreIds?: number[];
