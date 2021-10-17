@@ -50,6 +50,7 @@ export class GameService {
 
   update(id: number, dto: UpdateGameDto) {
     const genreIds = dto.genreIds;
+
     delete dto.genreIds;
 
     const data: Prisma.GameUpdateInput = {
@@ -58,6 +59,7 @@ export class GameService {
         set: genreIds?.map((genreId) => ({ id: genreId })) || [],
       },
     };
+
     return this.prisma.game.update({
       where: { id },
       data,

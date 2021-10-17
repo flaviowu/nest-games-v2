@@ -30,7 +30,7 @@ model Profile{
   title           String
   image           String
   
-  account         Account        @relation(fields: [accountId], references: [id])
+  account         Account        @relation(fields: [accountId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   accountId       Int
 }
 

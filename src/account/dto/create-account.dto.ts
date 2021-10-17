@@ -38,8 +38,8 @@ export class CreateAccountDto extends Account {
   @IsOptional()
   profiles?: CreateProfileDto[];
 
-  @IsInt({ each: true })
-  @IsArray()
-  @IsOptional()
-  favoriteGamesId?: number[];
+  // @IsInt({ each: true })
+  // @IsArray()
+  // @IsOptional()
+  // favoriteGamesId?: number[];
 }
