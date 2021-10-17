@@ -5,7 +5,7 @@ import {
   IsString,
   IsEmail,
   IsArray,
-  IsInt,
+  // IsInt,
   ValidateNested,
   IsOptional,
 } from 'class-validator';
