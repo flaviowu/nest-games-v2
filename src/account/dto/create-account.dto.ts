@@ -19,7 +19,7 @@ export class CreateAccountDto extends Account {
 
   @IsString()
   @IsNotEmpty()
-  surname: string;
+  lastname: string;
 
   @IsEmail()
   @IsNotEmpty()

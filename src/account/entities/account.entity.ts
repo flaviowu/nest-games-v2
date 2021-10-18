@@ -4,7 +4,7 @@ import { Profile } from '../../profile/entities/profile.entity';
 export class Account {
   id?: number;
   name: string;
-  surname: string;
+  lastname: string;
   email: string;
   password: string;
   cpf: string;

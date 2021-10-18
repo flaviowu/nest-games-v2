@@ -15,7 +15,7 @@ model Account{
   createdAt       DateTime    @default(now())
   isAdmin         Boolean     @default(false)
   name            String      
-  surname         String
+  lastname        String
   email           String      @unique
   password        String
   cpf             String      @unique
