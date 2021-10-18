@@ -7,4 +7,9 @@ export class UpdateAccountDto extends PartialType(CreateAccountDto) {
   @IsArray()
   @IsOptional()
   favoriteGamesId?: number[];
+
+  @IsInt({ each: true })
+  @IsArray()
+  @IsOptional()
+  removeFavoriteGamesId?: number[];
 }

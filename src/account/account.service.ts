@@ -57,8 +57,10 @@ export class AccountService {
 
   update(id: number, dto: UpdateAccountDto) {
     const favoriteGamesIds = dto.favoriteGamesId;
+    const removeFavoriteGamesIds = dto.removeFavoriteGamesId;
 
     delete dto.favoriteGamesId;
+    delete dto.removeFavoriteGamesId;
 
     const data: Prisma.AccountUpdateWithoutProfilesInput = {
       ...dto,
@@ -78,7 +80,9 @@ export class AccountService {
       // },
 
       favoriteGames: {
-        set: favoriteGamesIds?.map((gameId) => ({ id: gameId })) || [],
+        connect: favoriteGamesIds?.map((gameId) => ({ id: gameId })) || [],
+        disconnect:
+          removeFavoriteGamesIds?.map((gameId) => ({ id: gameId })) || [],
       },
     };
 

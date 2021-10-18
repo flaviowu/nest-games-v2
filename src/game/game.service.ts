@@ -25,7 +25,7 @@ export class GameService {
     const data: Prisma.GameCreateInput = {
       ...dto,
       genres: {
-        connect: genreIds.map((genreId) => ({ id: genreId })),
+        connect: genreIds?.map((genreId) => ({ id: genreId })) || [],
       },
     };
 
