@@ -1,8 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+
+//Prisma
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma } from '@prisma/client'; //add Role
+
+// Models
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { Account } from './entities/account.entity';
+
+//Errors
+// import { ForbiddenError } from '../../errors/forbidden.error';
+
+//Bcrypt
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AccountService {
@@ -20,13 +31,15 @@ export class AccountService {
       select: {
         id: true,
         title: true,
+        cover: true,
       },
     },
   };
 
-  create(dto: CreateAccountDto) {
+  async create(dto: CreateAccountDto): Promise<Account> {
     const data: Prisma.AccountUncheckedCreateInput = {
       ...dto,
+      password: await bcrypt.hash(dto.password, 10),
       profiles: {
         create: {
           title: dto.name,
@@ -36,10 +49,11 @@ export class AccountService {
       },
     };
 
-    return this.prisma.account.create({
-      data,
-      include: this._include,
-    });
+    const createdAccount = await this.prisma.account.create({ data });
+    return {
+      ...createdAccount,
+      password: undefined,
+    };
   }
 
   findAll() {
@@ -51,6 +65,19 @@ export class AccountService {
   findOne(id: number) {
     return this.prisma.account.findUnique({
       where: { id },
+    });
+  }
+
+  findById(id: number) {
+    return this.prisma.account.findUnique({
+      where: { id },
+      include: this._include,
+    });
+  }
+
+  findByEmail(email: string) {
+    return this.prisma.account.findUnique({
+      where: { email },
       include: this._include,
     });
   }
@@ -64,20 +91,6 @@ export class AccountService {
 
     const data: Prisma.AccountUpdateWithoutProfilesInput = {
       ...dto,
-
-      // profiles: {
-      //   connectOrCreate: dto.profiles.map((updateProfileDto) => ({
-      //     where: { id: updateProfileDto.id },
-      //     update: {
-      //       title: updateProfileDto.title,
-      //       image: updateProfileDto.image,
-      //     },
-      //     create: {
-      //       title: updateProfileDto.title,
-      //       image: updateProfileDto.image,
-      //     },
-      //   })),
-      // },
 
       favoriteGames: {
         connect: favoriteGamesIds?.map((gameId) => ({ id: gameId })) || [],
