@@ -1,4 +1,6 @@
 {
+    "files.eol": "\n",
+    
     "sqltools.connections": [
         {
             "previewLimit": 50,
