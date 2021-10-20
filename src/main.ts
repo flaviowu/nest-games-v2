@@ -26,6 +26,6 @@ async function bootstrap() {
   // Interceptors
   app.useGlobalInterceptors(new UnauthorizedInterceptor());
 
-  await app.listen(process.env.PORTT || 3001);
+  await app.listen(process.env.PORTT || 8080);
 }
 bootstrap();
